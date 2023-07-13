@@ -1,4 +1,4 @@
-module github.com/daijun4you/golang-tech-course
+module github.com/daijun4you/golang-gpt-course
 
 go 1.18
 
