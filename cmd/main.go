@@ -9,6 +9,7 @@ var funcList = map[string]map[string]func(){
 	"openai_api": {
 		"chat":       openaiApi.Chat,
 		"completion": openaiApi.Completion,
+		"embedding":  openaiApi.Embedding,
 	},
 }
 
