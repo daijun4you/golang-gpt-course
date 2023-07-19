@@ -6,13 +6,13 @@ import (
 	openai "github.com/sashabaranov/go-openai"
 )
 
-var client *openai.Client
-var req openai.ChatCompletionRequest
+var chatClient *openai.Client
+var chatReq openai.ChatCompletionRequest
 
 func Chat() {
-	client = openai.NewClient(configs.Instance.Get("api_key", "openai.ini"))
+	chatClient = openai.NewClient(configs.Instance.Get("api_key", "openai.ini"))
 
-	req = openai.ChatCompletionRequest{
+	chatReq = openai.ChatCompletionRequest{
 		// 最新GPT-3.5 16K模型
 		Model: openai.GPT3Dot5Turbo16K0613,
 		// 限制上下文最大的Token数量
@@ -38,7 +38,7 @@ func Chat() {
 		N: 2,
 	}
 
-	chatCompletion, err := client.CreateChatCompletion(context.Background(), req)
+	chatCompletion, err := chatClient.CreateChatCompletion(context.Background(), chatReq)
 	if err != nil {
 		println(err.Error())
 		return
@@ -50,5 +50,5 @@ func Chat() {
 	println(chatCompletion.Choices[1].Message.Content)
 
 	// 加入到上下文中，
-	req.Messages = append(req.Messages, chatCompletion.Choices[0].Message)
+	chatReq.Messages = append(chatReq.Messages, chatCompletion.Choices[0].Message)
 }

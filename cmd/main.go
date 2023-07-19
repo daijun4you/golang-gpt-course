@@ -7,7 +7,8 @@ import (
 
 var funcList = map[string]map[string]func(){
 	"openai_api": {
-		"chat": openaiApi.Chat,
+		"chat":       openaiApi.Chat,
+		"completion": openaiApi.Completion,
 	},
 }
 
