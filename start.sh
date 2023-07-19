@@ -4,4 +4,4 @@ cd $base;
 
 go mod tidy
 
-go run cmd/*
+go run cmd/* ${1} ${2}
