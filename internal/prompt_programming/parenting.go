@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-var contextMessages = []openai.ChatCompletionMessage{
+var parentingContextMessages = []openai.ChatCompletionMessage{
 	// GPT角色设定
 	{
 		Role:    openai.ChatMessageRoleSystem,
@@ -29,7 +29,7 @@ func Parenting() {
 		}
 
 		// 放入上下文
-		contextMessages = append(contextMessages, openai.ChatCompletionMessage{
+		parentingContextMessages = append(parentingContextMessages, openai.ChatCompletionMessage{
 			Role:    openai.ChatMessageRoleUser,
 			Content: userInput.Text(),
 		})
@@ -38,7 +38,7 @@ func Parenting() {
 
 		completionMessage := parentingReqGPT()
 		// 放入上下文
-		contextMessages = append(contextMessages, completionMessage)
+		parentingContextMessages = append(parentingContextMessages, completionMessage)
 
 		println("\r育儿师：" + completionMessage.Content)
 	}
@@ -52,7 +52,7 @@ func parentingReqGPT() openai.ChatCompletionMessage {
 		// 限制上下文最大的Token数量
 		MaxTokens: 5000,
 		// GPT上下文
-		Messages: contextMessages,
+		Messages: parentingContextMessages,
 		// 这里调节系数，让模型的答复更稳定
 		Temperature: 0.2,
 		// 不采用流式响应

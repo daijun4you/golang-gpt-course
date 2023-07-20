@@ -6,13 +6,10 @@ import (
 	openai "github.com/sashabaranov/go-openai"
 )
 
-var completionClient *openai.Client
-var completionReq openai.CompletionRequest
-
 func Completion() {
-	completionClient = openai.NewClient(configs.Instance.Get("api_key", "openai.ini"))
-
-	completionReq = openai.CompletionRequest{
+	// 初始化client，并设置api key
+	client := openai.NewClient(configs.Instance.Get("api_key", "openai.ini"))
+	req := openai.CompletionRequest{
 		// 最新GPT-3.5 16K模型
 		Model: openai.GPT3TextDavinci003,
 		// 限制上下文最大的Token数量
@@ -30,7 +27,7 @@ func Completion() {
 		Echo: false,
 	}
 
-	completion, err := completionClient.CreateCompletion(context.Background(), completionReq)
+	completion, err := client.CreateCompletion(context.Background(), req)
 	if err != nil {
 		println(err.Error())
 		return
