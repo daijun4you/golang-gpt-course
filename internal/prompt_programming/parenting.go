@@ -19,7 +19,7 @@ var parentingContextMessages = []openai.ChatCompletionMessage{
 func Parenting() {
 	print("\r系统初始化中，请稍后...")
 
-	completionMessage := parentingReqGPT()
+	completionMessage := parentingReqGPT(parentingContextMessages)
 	println("\r育儿师：" + completionMessage.Content)
 
 	userInput := bufio.NewScanner(os.Stdin)
@@ -36,7 +36,7 @@ func Parenting() {
 
 		print("\r育儿师思考中，请稍后...")
 
-		completionMessage := parentingReqGPT()
+		completionMessage := parentingReqGPT(parentingContextMessages)
 		// 放入上下文
 		parentingContextMessages = append(parentingContextMessages, completionMessage)
 
@@ -44,7 +44,7 @@ func Parenting() {
 	}
 }
 
-func parentingReqGPT() openai.ChatCompletionMessage {
+func parentingReqGPT(msg []openai.ChatCompletionMessage) openai.ChatCompletionMessage {
 	parentingClient := openai.NewClient(configs.Instance.Get("api_key", "openai.ini"))
 	parentingReq := openai.ChatCompletionRequest{
 		// 最新GPT-3.5 16K模型
@@ -52,7 +52,7 @@ func parentingReqGPT() openai.ChatCompletionMessage {
 		// 限制上下文最大的Token数量
 		MaxTokens: 5000,
 		// GPT上下文
-		Messages: parentingContextMessages,
+		Messages: msg,
 		// 这里调节系数，让模型的答复更稳定
 		Temperature: 0.2,
 		// 不采用流式响应

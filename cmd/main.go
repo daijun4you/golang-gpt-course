@@ -13,7 +13,8 @@ var funcList = map[string]map[string]func(){
 		"embedding":  openaiApi.Embedding,
 	},
 	"prompt_programming": {
-		"parenting": promptProgramming.Parenting,
+		"parenting":    promptProgramming.Parenting,
+		"math_teacher": promptProgramming.MathTeacher,
 	},
 }
 
