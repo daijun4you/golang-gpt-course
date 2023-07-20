@@ -2,6 +2,7 @@ package main
 
 import (
 	openaiApi "github.com/daijun4you/golang-gpt-course/internal/openai_api"
+	promptProgramming "github.com/daijun4you/golang-gpt-course/internal/prompt_programming"
 	"os"
 )
 
@@ -10,6 +11,9 @@ var funcList = map[string]map[string]func(){
 		"chat":       openaiApi.Chat,
 		"completion": openaiApi.Completion,
 		"embedding":  openaiApi.Embedding,
+	},
+	"prompt_programming": {
+		"parenting": promptProgramming.Parenting,
 	},
 }
 
